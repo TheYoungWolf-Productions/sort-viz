@@ -1,18 +1,24 @@
-import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import React, { Component } from "react";
+import { Row, Col } from "react-bootstrap";
 
-import Sorter from './Sorter/Sorter';
-import Controls from './Controller/Controller';
+import Sorter from "../Sorter/Sorter";
+import Controls from "../Controller/Controller";
 
-const player: React.FC = (props) => {
-    return (
-        <Row>
-            <Col>
-                <Sorter />
-                <Controls />
-            </Col>
-        </Row>
-    )
+interface props {
+  arrList: number[];
 }
 
-export default player;
+class Player extends Component<props> {
+  render() {
+    return (
+      <Row>
+        <Col>
+          <Sorter arrList={this.props.arrList} />
+          <Controls />
+        </Col>
+      </Row>
+    );
+  }
+}
+
+export default Player;
