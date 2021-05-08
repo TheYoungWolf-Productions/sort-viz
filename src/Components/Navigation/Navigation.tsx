@@ -36,4 +36,4 @@ const navigation: React.FC<props> = (props) => {
     </Navbar>
   );
 };
-export default navigation;
+export default React.memo(navigation);

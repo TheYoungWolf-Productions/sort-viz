@@ -7,14 +7,14 @@ import Aux from "../../hoc/Aux/Aux";
 
 class Layout extends Component {
   state = {
-    arrList: [4, 2, 5, 2, 2],
+    arrList: [5, 2, 6, 8, 7, 3, 5, 6, 1, 2],
   };
 
   randomizeHandler = () => {
     console.log("Randomize Handler");
     const newArr: number[] = [];
     this.state.arrList.map((val) => {
-      return newArr.push(Math.floor(Math.random() * 10));
+      return newArr.push(Math.floor(Math.random() * 100));
     });
     this.setState({ arrList: newArr });
   };
