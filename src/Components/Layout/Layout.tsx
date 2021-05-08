@@ -8,6 +8,7 @@ import Aux from "../../hoc/Aux/Aux";
 class Layout extends Component {
   state = {
     arrList: [5, 2, 6, 8, 7, 3, 5, 6, 1, 2],
+    size: 10,
   };
 
   randomizeHandler = () => {
@@ -18,12 +19,31 @@ class Layout extends Component {
     });
     this.setState({ arrList: newArr });
   };
+
+  sizeAdjustHandler = (e: any) => {
+    console.log(`Size Adjust ${e}`);
+    this.setState({ size: +e });
+    const newArr = new Array(+e);
+    for (let index = 0; index < newArr.length; index++) {
+      newArr[index] = (Math.random() * 100).toFixed(0);
+    }
+    this.setState({ arrList: newArr });
+    console.log(JSON.stringify(newArr));
+
+    // newArr.map((d) => {
+    //   return [...newArr, (Math.random() * 100).toFixed(0)];
+    // });
+  };
+
   render() {
     return (
       <Aux>
         <Row className="m-0 p-0">
           <Col className="m-0 p-0">
-            <Navigation randomize={this.randomizeHandler} />
+            <Navigation
+              randomize={this.randomizeHandler}
+              sizeAdjust={this.sizeAdjustHandler}
+            />
           </Col>
         </Row>
         <Container>

@@ -29,7 +29,7 @@ const Bar: React.FC<props> = (props) => {
           }px)`,
         }}
       />
-      {console.log(props.animationProps.barHeight)}
+      {/* {console.log(props.animationProps.barHeight)} */}
       <label
         style={{
           color: "white",

@@ -36,11 +36,11 @@ const sorter: React.FC<props> = (props) => {
           data={transformedArrList}
           keyAccessor={(d) => d.id}
           start={(d) => {
-            console.log(`In starter, ${JSON.stringify(d)}`);
+            // console.log(`In starter, ${JSON.stringify(d)}`);
             return { barHeight: 0, opacity: 1, x: 1e-6 };
           }}
           enter={(d) => {
-            console.log(`In enter, ${JSON.stringify(d)}`);
+            // console.log(`In enter, ${JSON.stringify(d)}`);
             return {
               barHeight: [y(d.value)],
               opacity: [1],
@@ -49,7 +49,7 @@ const sorter: React.FC<props> = (props) => {
             };
           }}
           update={(d) => {
-            console.log(`In update, ${JSON.stringify(d)}`);
+            // console.log(`In update, ${JSON.stringify(d)}`);
             return {
               barHeight: [y(d.value)],
               x: [scale(y(d.value).toString())],
@@ -57,7 +57,7 @@ const sorter: React.FC<props> = (props) => {
             };
           }}
           leave={() => {
-            console.log(`In leave`);
+            // console.log(`In leave`);
             return {
               opacity: [1e-6],
               x: [scale.range()[1]],
@@ -68,9 +68,9 @@ const sorter: React.FC<props> = (props) => {
           {(nodes) => (
             <div style={{ display: "flex" }}>
               {nodes.map(({ key, data, state }) => {
-                console.log("Nodes being mapped");
+                // console.log("Nodes being mapped");
                 // console.log(`Key: ${key}, data: ${JSON.stringify(data)}`);
-                console.log(data);
+                // console.log(data);
                 return (
                   <Bar
                     key={key}

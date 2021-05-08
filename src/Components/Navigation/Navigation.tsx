@@ -9,8 +9,10 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 
+// NOTE: Set sizeAdjust event type.
 interface props {
   randomize(e: React.MouseEvent<HTMLElement, MouseEvent> | undefined): void;
+  sizeAdjust(e: any): void;
 }
 const navigation: React.FC<props> = (props) => {
   return (
@@ -21,10 +23,31 @@ const navigation: React.FC<props> = (props) => {
         <Nav className="mr-auto">
           <Nav.Link href="#home">Home</Nav.Link>
           {/* <Nav.Link href="#link">Link</Nav.Link> */}
-          <NavDropdown title="Sort-Algorithm" id="basic-nav-dropdown">
-            <NavDropdown.Item>Bubble Sort</NavDropdown.Item>
-            <NavDropdown.Item>Merge Sort</NavDropdown.Item>
-            <NavDropdown.Item>Quick Sort</NavDropdown.Item>
+          <NavDropdown title="Array size" id="basic-nav-dropdown">
+            <NavDropdown.Item
+              eventKey="10"
+              onSelect={(e) => props.sizeAdjust(e)}
+            >
+              10
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              eventKey="15"
+              onSelect={(e) => props.sizeAdjust(e)}
+            >
+              15
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              eventKey="20"
+              onSelect={(e) => props.sizeAdjust(e)}
+            >
+              20
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              eventKey="25"
+              onSelect={(e) => props.sizeAdjust(e)}
+            >
+              25
+            </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item>Separated link</NavDropdown.Item>
           </NavDropdown>
