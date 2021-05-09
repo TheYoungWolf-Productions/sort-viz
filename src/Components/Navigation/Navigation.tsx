@@ -12,7 +12,7 @@ import {
 // NOTE: Set sizeAdjust event type.
 interface props {
   randomize(e: React.MouseEvent<HTMLElement, MouseEvent> | undefined): void;
-  sizeAdjust(e: any): void;
+  sizeAdjust(e: string | null): void;
 }
 const navigation: React.FC<props> = (props) => {
   return (

@@ -20,7 +20,7 @@ class Layout extends Component {
     this.setState({ arrList: newArr });
   };
 
-  sizeAdjustHandler = (e: any) => {
+  sizeAdjustHandler = (e: string) => {
     console.log(`Size Adjust ${e}`);
     this.setState({ size: +e });
     const newArr = new Array(+e);

@@ -23,15 +23,22 @@ const sorter: React.FC<props> = (props) => {
   });
 
   const scale = scaleBand()
-    .rangeRound([0, 1000])
+    .rangeRound([0, 500])
     .domain(transformedArrList.map((d) => d.name))
     .padding(0.1);
   const width = scale.bandwidth();
-  const y = scaleLinear().domain([0, 100]).range([350, 0]);
+  const y = scaleLinear().domain([0, 100]).range([0, 350]);
 
   return (
     <Row>
-      <Col style={{ height: "400px", margin: "0px 0px 50px 0px" }}>
+      <Col
+        style={{
+          height: "400px",
+          margin: "50px",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <NodeGroup
           data={transformedArrList}
           keyAccessor={(d) => d.id}
@@ -45,7 +52,7 @@ const sorter: React.FC<props> = (props) => {
               barHeight: [y(d.value)],
               opacity: [1],
               x: [scale(y(d.value).toString())],
-              timing: { duration: 50, ease: easeExpInOut },
+              timing: { duration: 750, ease: easeExpInOut },
             };
           }}
           update={(d) => {
@@ -53,7 +60,7 @@ const sorter: React.FC<props> = (props) => {
             return {
               barHeight: [y(d.value)],
               x: [scale(y(d.value).toString())],
-              timing: { duration: 50, ease: easeExpInOut },
+              timing: { duration: 750, ease: easeExpInOut },
             };
           }}
           leave={() => {
@@ -61,12 +68,12 @@ const sorter: React.FC<props> = (props) => {
             return {
               opacity: [1e-6],
               x: [scale.range()[1]],
-              timing: { duration: 50, ease: easeExpInOut },
+              timing: { duration: 10, ease: easeExpInOut },
             };
           }}
         >
           {(nodes) => (
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               {nodes.map(({ key, data, state }) => {
                 // console.log("Nodes being mapped");
                 // console.log(`Key: ${key}, data: ${JSON.stringify(data)}`);

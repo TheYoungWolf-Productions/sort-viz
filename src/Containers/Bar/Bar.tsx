@@ -14,6 +14,28 @@ interface props {
   };
 }
 
+const shouldLabelExist = (
+  label: number,
+  containerHeight: number,
+  barWidth: number
+) => {
+  if (label > 40 && barWidth > 40) {
+    return (
+      <label
+        style={{
+          color: "white",
+          fontSize: 18,
+          fontWeight: "bold",
+          position: "absolute",
+          top: `${containerHeight - 50}px`,
+          marginLeft: "1.1rem",
+        }}
+      >
+        {label.toFixed(0)}
+      </label>
+    );
+  }
+};
 const Bar: React.FC<props> = (props) => {
   return (
     <div>
@@ -30,26 +52,18 @@ const Bar: React.FC<props> = (props) => {
         }}
       />
       {/* {console.log(props.animationProps.barHeight)} */}
-      <label
-        style={{
-          color: "white",
-          fontSize: 18,
-          fontWeight: "bold",
-          position: "absolute",
-          top: `${props.containerHeight - 50}px`,
-          marginLeft: 20,
-        }}
-      >
-        {props.animationProps.barHeight.toFixed(0)}
-      </label>
-
+      {shouldLabelExist(
+        props.animationProps.barHeight,
+        props.containerHeight,
+        props.barWidth
+      )}
       <label
         style={{
           fontSize: 18,
           fontWeight: "bold",
           position: "absolute",
           top: `${props.containerHeight}px`,
-          marginLeft: 10,
+          marginLeft: 12,
         }}
       >
         {props.data.name}
