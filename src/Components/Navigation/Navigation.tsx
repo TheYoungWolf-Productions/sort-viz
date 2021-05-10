@@ -13,6 +13,7 @@ import {
 interface props {
   randomize(e: React.MouseEvent<HTMLElement, MouseEvent> | undefined): void;
   sizeAdjust(e: string | null): void;
+  sorting(e: React.MouseEvent<HTMLElement, MouseEvent> | undefined): void;
 }
 const navigation: React.FC<props> = (props) => {
   return (
@@ -55,6 +56,9 @@ const navigation: React.FC<props> = (props) => {
             Randomize
           </Button>
         </Nav>
+        <Button variant="success" onClick={(e) => props.sorting(e)}>
+          SORT!
+        </Button>
       </Navbar.Collapse>
     </Navbar>
   );

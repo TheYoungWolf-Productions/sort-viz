@@ -7,7 +7,7 @@ import Aux from "../../hoc/Aux/Aux";
 
 class Layout extends Component {
   state = {
-    arrList: [5, 2, 6, 8, 7, 3, 5, 6, 1, 2],
+    arrList: [350, 220, 64, 189, 171, 332, 323, 164, 12, 350],
     size: 10,
   };
 
@@ -15,24 +15,32 @@ class Layout extends Component {
     console.log("Randomize Handler");
     const newArr: number[] = [];
     this.state.arrList.map((val) => {
-      return newArr.push(Math.floor(Math.random() * 100));
+      return newArr.push(Math.floor(Math.random() * 400));
     });
     this.setState({ arrList: newArr });
   };
 
   sizeAdjustHandler = (e: string) => {
-    console.log(`Size Adjust ${e}`);
+    console.log(`Size Adjust Handler`);
     this.setState({ size: +e });
     const newArr = new Array(+e);
     for (let index = 0; index < newArr.length; index++) {
-      newArr[index] = (Math.random() * 100).toFixed(0);
+      newArr[index] = (Math.random() * 400).toFixed(0);
     }
     this.setState({ arrList: newArr });
-    console.log(JSON.stringify(newArr));
+    // console.log(JSON.stringify(newArr));
 
     // newArr.map((d) => {
     //   return [...newArr, (Math.random() * 100).toFixed(0)];
     // });
+  };
+
+  sortHandler = () => {
+    // console.log(this.state.arrList);
+    const sortedArr = this.state.arrList;
+    sortedArr.sort((a, b) => a - b);
+    // console.log(sortedArr);
+    this.setState({ arrList: sortedArr });
   };
 
   render() {
@@ -43,6 +51,7 @@ class Layout extends Component {
             <Navigation
               randomize={this.randomizeHandler}
               sizeAdjust={this.sizeAdjustHandler}
+              sorting={this.sortHandler}
             />
           </Col>
         </Row>

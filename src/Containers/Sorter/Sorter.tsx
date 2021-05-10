@@ -3,7 +3,6 @@ import { Row, Col } from "react-bootstrap";
 import { NodeGroup } from "react-move";
 import { scaleLinear, scaleBand } from "d3-scale";
 import { easeExpInOut } from "d3-ease";
-import { ascending, max } from "d3-array";
 
 import Bar from "../Bar/Bar";
 
@@ -23,11 +22,11 @@ const sorter: React.FC<props> = (props) => {
   });
 
   const scale = scaleBand()
-    .rangeRound([0, 500])
+    .rangeRound([0, 1000])
     .domain(transformedArrList.map((d) => d.name))
     .padding(0.1);
   const width = scale.bandwidth();
-  const y = scaleLinear().domain([0, 100]).range([0, 350]);
+  const y = scaleLinear().range([0, 350]).domain([0, 350]);
 
   return (
     <Row>
@@ -35,8 +34,9 @@ const sorter: React.FC<props> = (props) => {
         style={{
           height: "400px",
           margin: "50px",
-          alignItems: "center",
-          justifyContent: "center",
+          width: "100%",
+          // alignItems: "center",
+          // justifyContent: "center",
         }}
       >
         <NodeGroup
@@ -44,23 +44,27 @@ const sorter: React.FC<props> = (props) => {
           keyAccessor={(d) => d.id}
           start={(d) => {
             // console.log(`In starter, ${JSON.stringify(d)}`);
-            return { barHeight: 0, opacity: 1, x: 1e-6 };
+            return { barHeight: 0, opacity: 1e-6, x: 1e-6 };
           }}
           enter={(d) => {
-            // console.log(`In enter, ${JSON.stringify(d)}`);
+            // console.log(`In enter, ${JSON.stringify(d["value"])}`);
+
+            // console.log(
+            //   `In enter, ${JSON.stringify(y(d["name"]).toFixed(0).toString())}`
+            // );
             return {
               barHeight: [y(d.value)],
-              opacity: [1],
-              x: [scale(y(d.value).toString())],
-              timing: { duration: 750, ease: easeExpInOut },
+              opacity: [0.7],
+              x: [scale(y(d.name).toFixed(0).toString())],
+              timing: { duration: 250, ease: easeExpInOut },
             };
           }}
-          update={(d) => {
+          update={(d, i) => {
             // console.log(`In update, ${JSON.stringify(d)}`);
             return {
               barHeight: [y(d.value)],
-              x: [scale(y(d.value).toString())],
-              timing: { duration: 750, ease: easeExpInOut },
+              x: [scale(y(d.name).toFixed(0).toString())],
+              timing: { duration: 250, delay: i * 25, ease: easeExpInOut },
             };
           }}
           leave={() => {
@@ -73,19 +77,24 @@ const sorter: React.FC<props> = (props) => {
           }}
         >
           {(nodes) => (
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            // <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div>
               {nodes.map(({ key, data, state }) => {
                 // console.log("Nodes being mapped");
                 // console.log(`Key: ${key}, data: ${JSON.stringify(data)}`);
                 // console.log(data);
                 return (
-                  <Bar
+                  <div
                     key={key}
-                    data={data}
-                    animationProps={state}
-                    barWidth={width}
-                    containerHeight={400}
-                  />
+                    style={{ transform: `translate(${state.x}px ,0px)` }}
+                  >
+                    <Bar
+                      data={data}
+                      animationProps={state}
+                      barWidth={width}
+                      containerHeight={400}
+                    />
+                  </div>
                 );
               })}
             </div>

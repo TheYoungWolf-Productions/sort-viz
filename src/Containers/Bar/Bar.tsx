@@ -7,7 +7,7 @@ interface props {
   animationProps: {
     barHeight: number;
     opacity: number;
-    x?: string | number;
+    x?: string[] | number[];
     timing?: {
       duration: number;
     };
@@ -19,7 +19,7 @@ const shouldLabelExist = (
   containerHeight: number,
   barWidth: number
 ) => {
-  if (label > 40 && barWidth > 40) {
+  if (label > 40 && barWidth > 80) {
     return (
       <label
         style={{
@@ -28,7 +28,7 @@ const shouldLabelExist = (
           fontWeight: "bold",
           position: "absolute",
           top: `${containerHeight - 50}px`,
-          marginLeft: "1.1rem",
+          marginLeft: "1.8rem",
         }}
       >
         {label.toFixed(0)}
@@ -37,21 +37,24 @@ const shouldLabelExist = (
   }
 };
 const Bar: React.FC<props> = (props) => {
+  // console.log(props.animationProps.x);
   return (
     <div>
       <div
         style={{
-          margin: "10px",
+          // margin: "10px",
           backgroundColor: "teal",
           opacity: props.animationProps.opacity,
           width: props.barWidth,
+          position: "absolute",
           height: props.animationProps.barHeight,
-          transform: `translate(0, ${
+          // transform: `translate(${props.animationProps.x}px, ${
+          transform: `translate(0px, ${
             props.containerHeight - props.animationProps.barHeight - 20
           }px)`,
         }}
       />
-      {/* {console.log(props.animationProps.barHeight)} */}
+      {/* {console.log(props.containerHeight - props.animationProps.barHeight - 20)} */}
       {shouldLabelExist(
         props.animationProps.barHeight,
         props.containerHeight,
