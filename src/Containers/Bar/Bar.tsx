@@ -23,7 +23,7 @@ const shouldLabelExist = (
     return (
       <label
         style={{
-          color: "white",
+          color: "#E7E247",
           fontSize: 18,
           fontWeight: "bold",
           position: "absolute",
@@ -43,7 +43,7 @@ const Bar: React.FC<props> = (props) => {
       <div
         style={{
           // margin: "10px",
-          backgroundColor: "teal",
+          backgroundColor: "#5F464B",
           opacity: props.animationProps.opacity,
           width: props.barWidth,
           position: "absolute",

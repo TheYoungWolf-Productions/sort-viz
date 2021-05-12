@@ -52,7 +52,7 @@ const navigation: React.FC<props> = (props) => {
             <NavDropdown.Divider />
             <NavDropdown.Item>Separated link</NavDropdown.Item>
           </NavDropdown>
-          <Button variant="info" onClick={(e) => props.randomize(e)}>
+          <Button variant="outline-info" onClick={(e) => props.randomize(e)}>
             Randomize
           </Button>
         </Nav>

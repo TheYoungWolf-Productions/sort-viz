@@ -4,18 +4,23 @@ import Player from "../../Containers/Player/Player";
 import Description from "../Description/Description";
 import { Row, Col, Container } from "react-bootstrap";
 import Aux from "../../hoc/Aux/Aux";
-
+interface state {
+  arrList: number[];
+  size: number;
+  play: boolean;
+}
 class Layout extends Component {
-  state = {
+  state: state = {
     arrList: [350, 220, 64, 189, 171, 332, 323, 164, 12, 350],
     size: 10,
+    play: true,
   };
 
   randomizeHandler = () => {
     console.log("Randomize Handler");
     const newArr: number[] = [];
     this.state.arrList.map((val) => {
-      return newArr.push(Math.floor(Math.random() * 400));
+      return newArr.push(Math.floor(Math.random() * 350));
     });
     this.setState({ arrList: newArr });
   };
@@ -25,7 +30,7 @@ class Layout extends Component {
     this.setState({ size: +e });
     const newArr = new Array(+e);
     for (let index = 0; index < newArr.length; index++) {
-      newArr[index] = (Math.random() * 400).toFixed(0);
+      newArr[index] = (Math.random() * 350).toFixed(0);
     }
     this.setState({ arrList: newArr });
     // console.log(JSON.stringify(newArr));
@@ -37,10 +42,16 @@ class Layout extends Component {
 
   sortHandler = () => {
     // console.log(this.state.arrList);
-    const sortedArr = this.state.arrList;
+    const sortedArr = [...this.state.arrList];
     sortedArr.sort((a, b) => a - b);
     // console.log(sortedArr);
     this.setState({ arrList: sortedArr });
+  };
+
+  playPauseHandler = () => {
+    this.setState((prevState: state) => ({
+      play: !prevState.play,
+    }));
   };
 
   render() {
@@ -55,18 +66,27 @@ class Layout extends Component {
             />
           </Col>
         </Row>
-        <Container>
-          <Row>
-            <Col>
-              <Player arrList={this.state.arrList} />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Description />
-            </Col>
-          </Row>
-        </Container>
+        <div style={{ backgroundColor: "#94A89A" }}>
+          <Container>
+            <Row>
+              <Col
+                className="m-2"
+                style={{ backgroundColor: "#BCAB79", borderRadius: "25px" }}
+              >
+                <Player
+                  arrList={this.state.arrList}
+                  playPause={this.playPauseHandler}
+                  play={this.state.play}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Description />
+              </Col>
+            </Row>
+          </Container>
+        </div>
       </Aux>
     );
   }

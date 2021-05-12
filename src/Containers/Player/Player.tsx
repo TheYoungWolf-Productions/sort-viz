@@ -6,6 +6,8 @@ import Controls from "../Controller/Controller";
 
 interface props {
   arrList: number[];
+  playPause(): void;
+  play: boolean;
 }
 
 class Player extends Component<props> {
@@ -14,7 +16,7 @@ class Player extends Component<props> {
       <Row>
         <Col>
           <Sorter arrList={this.props.arrList} />
-          <Controls />
+          <Controls play={this.props.play} playPause={this.props.playPause} />
         </Col>
       </Row>
     );

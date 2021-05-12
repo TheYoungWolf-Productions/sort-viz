@@ -10,6 +10,19 @@ interface props {
   arrList: number[];
 }
 
+// Complexity of nlogn. TODO: Optimize it.
+// Logic not working. When sort is pressed,
+// prevArr is is essentially same as nextArr, just unsorted
+// const listAreEqual = (prevProps: props, nextProps: props) => {
+//   const a = JSON.stringify([...prevProps.arrList].sort((a, b) => a - b));
+//   const b = JSON.stringify([...nextProps.arrList].sort((a, b) => a - b));
+//   if (a == b) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// };
+
 const sorter: React.FC<props> = (props) => {
   let transformedArrList: { id: string; value: number; name: string }[] = [];
   props.arrList.map((value, index) => {
@@ -35,6 +48,9 @@ const sorter: React.FC<props> = (props) => {
           height: "400px",
           margin: "50px",
           width: "100%",
+          borderRadius: "50px",
+          backgroundColor: "#E9EDDE",
+          paddingBottom: "100px",
           // alignItems: "center",
           // justifyContent: "center",
         }}
@@ -100,58 +116,9 @@ const sorter: React.FC<props> = (props) => {
             </div>
           )}
         </NodeGroup>
-        {/* <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <NodeGroup
-            data={props.arrList}
-            keyAccessor={(_, index) => index}
-            start={(data, index) => ({
-              opacity: 1e-6,
-              x: 1e-6,
-            })}
-            enter={(d) => ({
-              opacity: [0.7],
-              x: [scale(d.toString())],
-              timing: { duration: 750, ease: easeExpInOut },
-            })}
-            update={(d, i) => ({
-              opacity: [0.7],
-              x: [scale(d.toString())],
-              timing: { duration: 750, delay: i * 50, ease: easeExpInOut },
-            })}
-            leave={() => ({
-              opacity: [1e-6],
-              x: [scale.range()[1]],
-              timing: { duration: 750, ease: easeExpInOut },
-            })}
-          >
-            {(nodes) => (
-              <g>
-                {nodes.map(({ data, key, state: { x, opacity } }) => (
-                  <g key={key} transform={`translate(${x},0)`}>
-                    <rect
-                      height={450 - y(data)}
-                      y={y(data)}
-                      fill="#ff69b4"
-                      width={width}
-                      opacity={opacity}
-                    />
-                    <text
-                      x={scale.bandwidth() / 2}
-                      y={450 + 15}
-                      dx="-.35em"
-                      fill="#dadada"
-                    >
-                      {data}
-                    </text>
-                  </g>
-                ))}
-              </g>
-            )}
-          </NodeGroup>
-        </svg> */}
       </Col>
     </Row>
   );
 };
 
-export default sorter;
+export default React.memo(sorter);
