@@ -5,19 +5,32 @@ interface props {
   barWidth: number;
   containerHeight: number;
   animationProps: {
+    scale: number;
+    shadow: number;
     barHeight: number;
     opacity: number;
-    x?: string[] | number[];
+    x: number;
     timing?: {
       duration: number;
     };
   };
+  mouseDown(
+    data: number,
+    x: number,
+    e: React.MouseEvent<HTMLElement, MouseEvent> | undefined
+  ): void;
+  touchStart(
+    data: number,
+    x: number,
+    e: React.TouchEvent<HTMLDivElement> | undefined
+  ): void;
 }
 
 const shouldLabelExist = (
   label: number,
   containerHeight: number,
-  barWidth: number
+  barWidth: number,
+  x: number
 ) => {
   if (label > 40 && barWidth > 80) {
     return (
@@ -29,6 +42,7 @@ const shouldLabelExist = (
           position: "absolute",
           top: `${containerHeight - 50}px`,
           marginLeft: "1.8rem",
+          transform: `translate(0px, ${0}px)`,
         }}
       >
         {label.toFixed(0)}
@@ -37,9 +51,17 @@ const shouldLabelExist = (
   }
 };
 const Bar: React.FC<props> = (props) => {
-  // console.log(props.animationProps.x);
+  // console.log(typeof props.animationProps.x);
   return (
-    <div>
+    <div
+      onMouseDown={(e) => {
+        console.log(typeof props.animationProps.x);
+        return props.mouseDown(props.data.value, props.animationProps.x, e);
+      }}
+      onTouchStart={(e) =>
+        props.touchStart(props.data.value, props.animationProps.x, e)
+      }
+    >
       <div
         style={{
           // margin: "10px",
@@ -49,24 +71,26 @@ const Bar: React.FC<props> = (props) => {
           position: "absolute",
           height: props.animationProps.barHeight,
           // transform: `translate(${props.animationProps.x}px, ${
-          transform: `translate(0px, ${
+          transform: `translate3d(0px, ${
             props.containerHeight - props.animationProps.barHeight - 20
-          }px)`,
+          }px, 0px)`,
         }}
       />
       {/* {console.log(props.containerHeight - props.animationProps.barHeight - 20)} */}
       {shouldLabelExist(
         props.animationProps.barHeight,
         props.containerHeight,
-        props.barWidth
+        props.barWidth,
+        props.animationProps.x
       )}
       <label
         style={{
-          fontSize: 18,
+          fontSize: 14,
           fontWeight: "bold",
           position: "absolute",
           top: `${props.containerHeight}px`,
-          marginLeft: 12,
+          marginLeft: "10px",
+          // transform: `translate(0px, ${0}px)`,
         }}
       >
         {props.data.name}

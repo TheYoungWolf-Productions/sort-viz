@@ -8,12 +8,14 @@ interface state {
   arrList: number[];
   size: number;
   play: boolean;
+  sort: boolean;
 }
 class Layout extends Component {
   state: state = {
     arrList: [350, 220, 64, 189, 171, 332, 323, 164, 12, 350],
     size: 10,
     play: true,
+    sort: false,
   };
 
   randomizeHandler = () => {
@@ -22,7 +24,7 @@ class Layout extends Component {
     this.state.arrList.map((val) => {
       return newArr.push(Math.floor(Math.random() * 350));
     });
-    this.setState({ arrList: newArr });
+    this.setState({ arrList: newArr, sort: false });
   };
 
   sizeAdjustHandler = (e: string) => {
@@ -32,7 +34,7 @@ class Layout extends Component {
     for (let index = 0; index < newArr.length; index++) {
       newArr[index] = (Math.random() * 350).toFixed(0);
     }
-    this.setState({ arrList: newArr });
+    this.setState({ arrList: newArr, sort: false });
     // console.log(JSON.stringify(newArr));
 
     // newArr.map((d) => {
@@ -41,11 +43,12 @@ class Layout extends Component {
   };
 
   sortHandler = () => {
-    // console.log(this.state.arrList);
-    const sortedArr = [...this.state.arrList];
-    sortedArr.sort((a, b) => a - b);
-    // console.log(sortedArr);
-    this.setState({ arrList: sortedArr });
+    // // console.log(this.state.arrList);
+    // const sortedArr = [...this.state.arrList];
+    // sortedArr.sort((a, b) => a - b);
+    // // console.log(sortedArr);
+    // this.setState({ arrList: sortedArr });
+    this.setState({ sort: true });
   };
 
   playPauseHandler = () => {
@@ -60,6 +63,7 @@ class Layout extends Component {
         <Row className="m-0 p-0">
           <Col className="m-0 p-0">
             <Navigation
+              sort={this.state.sort}
               randomize={this.randomizeHandler}
               sizeAdjust={this.sizeAdjustHandler}
               sorting={this.sortHandler}
@@ -74,6 +78,7 @@ class Layout extends Component {
                 style={{ backgroundColor: "#BCAB79", borderRadius: "25px" }}
               >
                 <Player
+                  sort={this.state.sort}
                   arrList={this.state.arrList}
                   playPause={this.playPauseHandler}
                   play={this.state.play}

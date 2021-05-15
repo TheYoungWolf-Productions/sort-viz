@@ -1,19 +1,12 @@
-import React, { ReactNode } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Navbar,
-  Nav,
-  NavDropdown,
-} from "react-bootstrap";
+import React from "react";
+import { Button, Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 // NOTE: Set sizeAdjust event type.
 interface props {
   randomize(e: React.MouseEvent<HTMLElement, MouseEvent> | undefined): void;
   sizeAdjust(e: string | null): void;
   sorting(e: React.MouseEvent<HTMLElement, MouseEvent> | undefined): void;
+  sort: boolean;
 }
 const navigation: React.FC<props> = (props) => {
   return (
@@ -56,7 +49,11 @@ const navigation: React.FC<props> = (props) => {
             Randomize
           </Button>
         </Nav>
-        <Button variant="success" onClick={(e) => props.sorting(e)}>
+        <Button
+          disabled={props.sort}
+          variant="success"
+          onClick={(e) => props.sorting(e)}
+        >
           SORT!
         </Button>
       </Navbar.Collapse>

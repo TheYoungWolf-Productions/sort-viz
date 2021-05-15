@@ -8,6 +8,7 @@ interface props {
   arrList: number[];
   playPause(): void;
   play: boolean;
+  sort: boolean;
 }
 
 class Player extends Component<props> {
@@ -15,7 +16,7 @@ class Player extends Component<props> {
     return (
       <Row>
         <Col>
-          <Sorter arrList={this.props.arrList} />
+          <Sorter arrList={this.props.arrList} sort={this.props.sort} />
           <Controls play={this.props.play} playPause={this.props.playPause} />
         </Col>
       </Row>
